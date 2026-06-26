@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>StudyQuest — Daily Planner & Quest Tracker</title>
+  <meta name="description" content="แอปวางแผนการเรียนรายวันและระบบเควสสำหรับนักเรียน จัดตารางเรียน ติดตามการบ้าน และเริ่มวันใหม่อย่างมีระบบ" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans Thai', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef5ff',
+              100: '#d9e8ff',
+              200: '#bbd8ff',
+              300: '#8cc0ff',
+              400: '#569dff',
+              500: '#2f7aff',
+              600: '#1459f5',
+              700: '#0d44e1',
+              800: '#1138b6',
+              900: '#14338f',
+              950: '#112157',
+            },
+            accent: {
+              50: '#fff7ed',
+              100: '#ffeed4',
+              200: '#ffd9a8',
+              300: '#ffbd71',
+              400: '#ff9633',
+              500: '#ff7a0d',
+              600: '#f05f03',
+              700: '#c74604',
+              800: '#9e380c',
+              900: '#7f300d',
+              950: '#451604',
+            },
+            surface: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
+              950: '#020617',
+            },
+            success: { DEFAULT: '#10b981', light: '#d1fae5' },
+            danger: { DEFAULT: '#ef4444', light: '#fee2e2' },
+            warning: { DEFAULT: '#f59e0b', light: '#fef3c7' },
+            exam: { DEFAULT: '#e11d48', light: '#ffe4e6', dark: '#9f1239' },
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="font-sans bg-surface-950 text-white min-h-screen antialiased">
+
+  <!-- ============ AUTH SCREENS ============ -->
+  <div id="auth-screen" class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-sm">
+      <!-- Logo / Brand -->
+      <div class="text-center mb-8 animate-fade-in">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-500 to-accent-500 mb-4 shadow-xl shadow-brand-500/30">
+          <svg class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+          </svg>
+        </div>
+        <h1 class="text-3xl font-extrabold bg-gradient-to-r from-brand-400 to-accent-400 bg-clip-text text-transparent">StudyQuest</h1>
+        <p class="text-surface-400 mt-1 text-sm">วางแผนการเรียน ติดตามเควสรายวัน</p>
+      </div>
+
+      <!-- Login Form -->
+      <div id="login-form" class="glass-card p-6 rounded-2xl animate-slide-up">
+        <h2 class="text-xl font-bold mb-5 text-center">เข้าสู่ระบบ</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-surface-300 mb-1.5">ชื่อผู้ใช้</label>
+            <input id="login-username" type="text" placeholder="กรอกชื่อผู้ใช้" class="input-field" autocomplete="username" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-surface-300 mb-1.5">รหัสผ่าน</label>
+            <input id="login-password" type="password" placeholder="กรอกรหัสผ่าน" class="input-field" autocomplete="current-password" />
+          </div>
+          <div id="login-error" class="text-danger text-sm text-center hidden"></div>
+          <button id="login-btn" class="btn-primary w-full">เข้าสู่ระบบ</button>
+        </div>
+        <p class="text-center text-surface-400 text-sm mt-4">
+          ยังไม่มีบัญชี? <button id="show-register" class="text-brand-400 font-semibold hover:text-brand-300 transition-colors">สมัครสมาชิก</button>
+        </p>
+      </div>
+
+      <!-- Register Form -->
+      <div id="register-form" class="glass-card p-6 rounded-2xl animate-slide-up hidden">
+        <h2 class="text-xl font-bold mb-5 text-center">สมัครสมาชิก</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-surface-300 mb-1.5">ชื่อที่แสดง</label>
+            <input id="reg-displayname" type="text" placeholder="ชื่อเล่น / ชื่อจริง" class="input-field" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-surface-300 mb-1.5">ชื่อผู้ใช้</label>
+            <input id="reg-username" type="text" placeholder="สร้างชื่อผู้ใช้" class="input-field" autocomplete="username" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-surface-300 mb-1.5">รหัสผ่าน</label>
+            <input id="reg-password" type="password" placeholder="ตั้งรหัสผ่าน (อย่างน้อย 4 ตัว)" class="input-field" autocomplete="new-password" />
+          </div>
+          <div id="reg-error" class="text-danger text-sm text-center hidden"></div>
+          <button id="register-btn" class="btn-primary w-full">สมัครสมาชิก</button>
+        </div>
+        <p class="text-center text-surface-400 text-sm mt-4">
+          มีบัญชีแล้ว? <button id="show-login" class="text-brand-400 font-semibold hover:text-brand-300 transition-colors">เข้าสู่ระบบ</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MORNING QUEST GATE ============ -->
+  <div id="morning-quest-screen" class="min-h-screen p-4 hidden">
+    <div class="max-w-lg mx-auto pt-6">
+      <!-- Header -->
+      <div class="text-center mb-6 animate-fade-in">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 mb-3 shadow-lg shadow-amber-500/30">
+          <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold">เตรียมพร้อมเริ่มวันใหม่!</h2>
+        <p class="text-surface-400 text-sm mt-1">เช็กรายการวิชาวันนี้ให้ครบก่อนเริ่มวัน</p>
+      </div>
+
+      <!-- Quest List -->
+      <div id="morning-quest-list" class="space-y-3 mb-6"></div>
+
+      <!-- Empty State -->
+      <div id="morning-quest-empty" class="glass-card p-8 rounded-2xl text-center hidden">
+        <p class="text-surface-400 mb-3">ยังไม่มีเควสประจำเช้า</p>
+        <button id="morning-add-quest-shortcut" class="text-brand-400 font-semibold text-sm hover:text-brand-300 transition-colors">+ เพิ่มเควสในหน้าจัดการ</button>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="glass-card p-4 rounded-2xl mb-4">
+        <div class="flex justify-between text-sm mb-2">
+          <span class="text-surface-400">ความคืบหน้า</span>
+          <span id="quest-progress-text" class="font-semibold text-brand-400">0 / 0</span>
+        </div>
+        <div class="w-full bg-surface-800 rounded-full h-3 overflow-hidden">
+          <div id="quest-progress-bar" class="h-full bg-gradient-to-r from-brand-500 to-accent-500 rounded-full transition-all duration-500 ease-out" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Start Day Button -->
+      <button id="start-day-btn" class="w-full py-4 rounded-2xl font-bold text-lg bg-surface-800 text-surface-500 cursor-not-allowed transition-all duration-300 relative overflow-hidden" disabled>
+        <span class="relative z-10">🔒 ทำเควสให้ครบก่อน</span>
+      </button>
+
+      <!-- Skip Button -->
+      <button id="skip-quest-btn" class="w-full mt-3 py-2.5 rounded-xl text-surface-500 text-sm hover:text-surface-300 transition-colors">
+        ข้ามเควสเช้า →
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ MAIN APP ============ -->
+  <div id="main-app" class="min-h-screen pb-24 hidden">
+
+    <!-- Top Bar -->
+    <header class="sticky top-0 z-40 glass-nav px-4 py-3">
+      <div class="max-w-lg mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+          </div>
+          <span class="font-bold text-sm bg-gradient-to-r from-brand-400 to-accent-400 bg-clip-text text-transparent">StudyQuest</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span id="topbar-user" class="text-xs text-surface-400 hidden sm:inline"></span>
+          <button id="logout-btn" class="text-surface-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-surface-800" title="ออกจากระบบ">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Pages Container -->
+    <div class="max-w-lg mx-auto px-4 pt-4">
+
+      <!-- ===== PAGE: HOME ===== -->
+      <section id="page-home" class="page-section">
+        <!-- Date & Time Card -->
+        <div class="glass-card rounded-2xl p-5 mb-4 animate-fade-in relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-brand-500/10 to-transparent rounded-bl-full"></div>
+          <div class="relative">
+            <p class="text-surface-400 text-sm" id="home-date-label"></p>
+            <h2 class="text-4xl font-extrabold mt-1 tracking-tight" id="home-time"></h2>
+            <p class="text-surface-300 text-sm mt-1" id="home-greeting"></p>
+          </div>
+        </div>
+
+        <!-- Current Class Indicator -->
+        <div id="current-class-card" class="glass-card rounded-2xl p-4 mb-4 animate-fade-in relative overflow-hidden">
+          <!-- Dynamically filled by JS -->
+        </div>
+
+        <!-- Today's Schedule -->
+        <div class="mb-4">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-bold text-lg flex items-center gap-2">
+              <span class="w-1.5 h-5 bg-brand-500 rounded-full"></span>
+              ตารางเรียนวันนี้
+            </h3>
+          </div>
+          <div id="home-schedule-list" class="space-y-2"></div>
+          <div id="home-schedule-empty" class="glass-card p-6 rounded-2xl text-center hidden">
+            <p class="text-surface-500 text-sm">ไม่มีคาบเรียนวันนี้ 🎉</p>
+          </div>
+        </div>
+
+        <!-- Upcoming Assignments -->
+        <div class="mb-4">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-bold text-lg flex items-center gap-2">
+              <span class="w-1.5 h-5 bg-accent-500 rounded-full"></span>
+              งานที่ต้องส่ง
+            </h3>
+          </div>
+          <div id="home-assignment-list" class="space-y-2"></div>
+          <div id="home-assignment-empty" class="glass-card p-6 rounded-2xl text-center hidden">
+            <p class="text-surface-500 text-sm">ไม่มีงานค้างส่ง 👏</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== PAGE: MANAGE ===== -->
+      <section id="page-manage" class="page-section hidden">
+        <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+          <span class="w-1.5 h-5 bg-brand-500 rounded-full"></span>
+          จัดการข้อมูล
+        </h2>
+
+        <!-- Tabs -->
+        <div class="flex gap-2 mb-4 overflow-x-auto no-scrollbar">
+          <button class="manage-tab" data-tab="subjects">วิชาเรียน</button>
+          <button class="manage-tab active" data-tab="assignments">งาน/การบ้าน</button>
+          <button class="manage-tab" data-tab="quests">เควสเสริม</button>
+        </div>
+
+        <!-- Subjects Tab -->
+        <div id="tab-subjects" class="tab-content hidden">
+          <button id="add-subject-btn" class="btn-add w-full mb-4">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            เพิ่มวิชาเรียน
+          </button>
+          <div id="subject-list" class="space-y-2"></div>
+          <div id="subject-empty" class="text-center py-8 text-surface-500 text-sm hidden">
+            <p>ยังไม่มีวิชาเรียน</p>
+            <p class="text-xs mt-1">กดปุ่มด้านบนเพื่อเพิ่มวิชา</p>
+          </div>
+        </div>
+
+        <!-- Assignments Tab -->
+        <div id="tab-assignments" class="tab-content">
+          <button id="add-assignment-btn" class="btn-add w-full mb-4">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            เพิ่มงาน/การบ้าน
+          </button>
+          <div id="assignment-list" class="space-y-2"></div>
+          <div id="assignment-empty" class="text-center py-8 text-surface-500 text-sm hidden">
+            <p>ยังไม่มีงาน/การบ้าน</p>
+            <p class="text-xs mt-1">กดปุ่มด้านบนเพื่อเพิ่มงาน</p>
+          </div>
+        </div>
+
+        <!-- Quests Tab -->
+        <div id="tab-quests" class="tab-content hidden">
+          <div class="glass-card-inner p-3 rounded-xl mb-4">
+            <p class="text-xs text-surface-400">💡 เควสจากตารางเรียนจะถูกเพิ่มอัตโนมัติทุกเช้า เควสที่เพิ่มที่นี่จะเป็นเควสเสริมเพิ่มเติม</p>
+          </div>
+          <button id="add-quest-btn" class="btn-add w-full mb-4">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            เพิ่มเควสเสริม
+          </button>
+          <div id="quest-list" class="space-y-2"></div>
+          <div id="quest-empty" class="text-center py-8 text-surface-500 text-sm hidden">
+            <p>ยังไม่มีเควสเสริม</p>
+            <p class="text-xs mt-1">กดปุ่มด้านบนเพื่อเพิ่มเควส</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== PAGE: JOURNAL ===== -->
+      <section id="page-journal" class="page-section hidden">
+        <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+          <span class="w-1.5 h-5 bg-accent-500 rounded-full"></span>
+          บันทึกประจำวัน
+        </h2>
+
+        <!-- Write Entry -->
+        <div class="glass-card p-4 rounded-2xl mb-4">
+          <label class="block text-sm font-medium text-surface-300 mb-2">เขียนบันทึกวันนี้</label>
+          <textarea id="journal-text" class="input-field min-h-[120px] resize-none" placeholder="วันนี้เรียนรู้อะไรมาบ้าง..."></textarea>
+          <button id="save-journal-btn" class="btn-primary w-full mt-3">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            บันทึก
+          </button>
+        </div>
+
+        <!-- Past Entries -->
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-semibold text-sm text-surface-400">บันทึกย้อนหลัง</h3>
+        </div>
+        <div id="journal-entries" class="space-y-3"></div>
+        <div id="journal-empty" class="text-center py-8 text-surface-500 text-sm hidden">
+          <p>ยังไม่มีบันทึก</p>
+          <p class="text-xs mt-1">เริ่มเขียนบันทึกวันนี้เลย!</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 z-50 glass-nav border-t border-white/5">
+      <div class="max-w-lg mx-auto flex items-center justify-around py-2 px-2">
+        <button class="nav-btn active" data-page="home">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          <span>หน้าหลัก</span>
+        </button>
+        <button class="nav-btn" data-page="manage">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+          <span>จัดการ</span>
+        </button>
+        <button class="nav-btn" data-page="journal">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+          <span>บันทึก</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ============ MODAL ============ -->
+  <div id="modal-overlay" class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm hidden items-end sm:items-center justify-center">
+    <div id="modal-container" class="w-full max-w-lg bg-surface-900 rounded-t-3xl sm:rounded-2xl max-h-[90vh] overflow-y-auto modal-enter">
+      <div class="sticky top-0 bg-surface-900/95 backdrop-blur-sm p-4 pb-2 border-b border-white/5 flex items-center justify-between z-10">
+        <h3 id="modal-title" class="font-bold text-lg"></h3>
+        <button id="modal-close" class="p-2 rounded-xl hover:bg-surface-800 transition-colors text-surface-400 hover:text-white">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="modal-body" class="p-4 pt-3"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed top-4 left-1/2 -translate-x-1/2 z-[70] hidden">
+    <div class="glass-card px-5 py-3 rounded-xl shadow-xl flex items-center gap-2 animate-slide-down">
+      <svg id="toast-icon" class="w-5 h-5 text-success shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+      <span id="toast-text" class="text-sm font-medium"></span>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -69,6 +69,15 @@
     { name: '🍱 พักกลางวัน / นั่งสมาธิ', startTime: '11:55', endTime: '13:00' },
   ];
 
+  // Daily Routine Quests (Fixed 5 periods)
+  const ROUTINE_QUESTS = [
+    { id: 'q_wakeup', name: 'ช่วงตื่นนอน', targetTime: '06:00' },
+    { id: 'q_morning', name: 'ช่วงเช้า', targetTime: '09:00' },
+    { id: 'q_noon', name: 'ช่วงพักกลางวัน', targetTime: '12:00' },
+    { id: 'q_afterschool', name: 'ช่วงเลิกเรียน', targetTime: '16:00' },
+    { id: 'q_sleep', name: 'ก่อนนอน', targetTime: '21:00' }
+  ];
+
   // ===== STATE =====
   let currentUser = null;
   let clockInterval = null;
@@ -517,7 +526,7 @@
       const done = todayChecks[q.id] || false;
       const examClass = q.isExam ? 'quest-exam' : '';
       return `
-        <div class="quest-item ${done ? 'completed' : ''} ${examClass}" data-quest-id="${q.id}">
+        <div class="quest-item ${done ? 'completed hidden' : ''} ${examClass}" data-quest-id="${q.id}">
           <div class="quest-checkbox">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
@@ -678,6 +687,74 @@
 
     // Update current class indicator
     renderCurrentClass();
+    updateRoutineQuestButton();
+  }
+
+  function updateRoutineQuestButton() {
+    const btn = $('home-routine-quest-btn');
+    if (!btn) return;
+
+    const todayStr = getTodayStr();
+    const routineChecks = getData('routineChecks', {});
+    const todayChecks = routineChecks[todayStr] || {};
+    const currentMins = nowMinutes();
+
+    // Find the first quest that is NOT done, and is either overdue or within 5 mins of starting
+    let activeQuest = null;
+    let isOverdue = false;
+
+    for (const q of ROUTINE_QUESTS) {
+      if (!todayChecks[q.id]) {
+        const targetMins = timeToMinutes(q.targetTime);
+        if (currentMins >= targetMins - 5) {
+          activeQuest = q;
+          isOverdue = currentMins >= targetMins;
+          break;
+        }
+      }
+    }
+
+    if (!activeQuest) {
+      btn.classList.add('hidden');
+      return;
+    }
+
+    btn.classList.remove('hidden');
+    
+    // Style based on overdue status
+    if (isOverdue) {
+      btn.className = 'mb-4 cursor-pointer transition-all duration-300 transform hover:scale-[1.02] shadow-lg bg-danger/10 border-2 border-danger/50 p-4 rounded-2xl flex items-center justify-between text-danger shadow-danger/20';
+      btn.innerHTML = `
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-danger/20 flex items-center justify-center text-xl animate-pulse">⚠️</div>
+          <div>
+            <p class="font-bold text-lg">เควสประจำวัน: ${activeQuest.name}</p>
+            <p class="text-xs font-semibold">เลยเวลาเป้าหมาย (${activeQuest.targetTime} น.) แล้ว!</p>
+          </div>
+        </div>
+        <button class="bg-danger text-white px-4 py-2 rounded-xl font-bold hover:opacity-80 transition-opacity">สำเร็จ</button>
+      `;
+    } else {
+      btn.className = 'mb-4 cursor-pointer transition-all duration-300 transform hover:scale-[1.02] shadow-lg bg-yellow-500/20 border-2 border-yellow-500/50 p-4 rounded-2xl flex items-center justify-between text-yellow-500 shadow-yellow-500/20';
+      btn.innerHTML = `
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-yellow-500/30 flex items-center justify-center text-xl animate-bounce">⭐</div>
+          <div>
+            <p class="font-bold text-lg">เควสประจำวัน: ${activeQuest.name}</p>
+            <p class="text-xs font-semibold">ใกล้ถึงเวลาเป้าหมาย (${activeQuest.targetTime} น.)</p>
+          </div>
+        </div>
+        <button class="bg-yellow-500 text-white px-4 py-2 rounded-xl font-bold hover:opacity-80 transition-opacity">สำเร็จ</button>
+      `;
+    }
+
+    btn.onclick = () => {
+      todayChecks[activeQuest.id] = true;
+      routineChecks[todayStr] = todayChecks;
+      setData('routineChecks', routineChecks);
+      showToast(`ทำเควส ${activeQuest.name} สำเร็จ! 🎉`, 'success');
+      updateRoutineQuestButton();
+    };
   }
 
   // --- Current Class Indicator ---
@@ -1481,15 +1558,18 @@
       return `
         <div class="manage-item ${a.done ? 'opacity-40' : ''}" style="${borderStyle}">
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="font-semibold text-sm ${a.done ? 'line-through text-surface-500' : ''}">${escapeHtml(a.subject)}</span>
-              ${a.type === 'exam' ? '<span class="exam-badge">📝 สอบ</span>' : ''}
+            <div class="flex items-center gap-2 flex-wrap mb-1">
+              <span class="font-bold text-sm md:text-base ${a.done ? 'line-through text-surface-500' : 'text-surface-100'}">${escapeHtml(a.detail || 'ไม่มีรายละเอียดงาน')}</span>
+              ${a.type === 'exam' ? '<span class="exam-badge">📝 สอบ</span>' : '<span class="bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded-full text-[10px] font-bold">📋 งาน</span>'}
               ${isDueToday ? '<span class="due-badge urgent">📢 วันนี้!</span>' : ''}
-              ${a.done ? '<span class="text-xs text-success">✓ เสร็จแล้ว</span>' : ''}
-              ${overdue ? '<span class="text-xs text-danger font-semibold">เลยกำหนดส่ง!</span>' : ''}
+              ${a.done ? '<span class="text-xs text-success font-bold">✓ เสร็จแล้ว</span>' : ''}
+              ${overdue ? '<span class="text-xs text-danger font-bold">เลยกำหนดส่ง!</span>' : ''}
             </div>
-            <p class="text-xs text-surface-500 mt-0.5 ${a.done ? 'line-through' : ''}">${escapeHtml(a.detail)}</p>
-            <p class="text-xs text-surface-500 mt-0.5">กำหนดส่ง: ${formatDate(a.dueDate)}</p>
+            <p class="text-xs font-semibold text-brand-400 mt-0.5">วิชา: ${escapeHtml(a.subject)}</p>
+            <div class="flex flex-wrap justify-between items-center mt-2 gap-2">
+              <p class="text-xs text-surface-400">กำหนดส่ง: <span class="text-surface-200 font-medium">${formatDate(a.dueDate)}</span></p>
+              <p class="text-[10px] text-surface-500">บันทึกเมื่อ: ${a.createdAt ? formatTimestamp(a.createdAt) : 'ไม่ระบุ'}</p>
+            </div>
           </div>
           <div class="item-actions">
             ${!a.done ? `
@@ -1806,6 +1886,15 @@
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();
+  });
+
+  // Listen for changes from other tabs to update UI in real-time
+  window.addEventListener('storage', (e) => {
+    if (e.key && e.key.startsWith(`sq_${currentUser?.id}`)) {
+      if (!$('page-home').classList.contains('hidden')) renderHomePage();
+      if (!$('page-manage').classList.contains('hidden')) renderManagePage();
+      if (!$('page-journal').classList.contains('hidden')) renderJournalPage();
+    }
   });
 
   // ===== INIT =====

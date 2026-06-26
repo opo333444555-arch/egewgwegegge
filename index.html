@@ -220,6 +220,9 @@
           <!-- Dynamically filled by JS -->
         </div>
 
+        <!-- Routine Quest Banner Placeholder -->
+        <div id="home-routine-quest-btn" class="mb-4 hidden cursor-pointer transition-all duration-300 transform hover:scale-[1.02] shadow-lg"></div>
+
         <!-- Today's Schedule -->
         <div class="mb-4">
           <div class="flex items-center justify-between mb-3">
@@ -263,24 +266,6 @@
           <button class="manage-tab" data-tab="quests">เควสเสริม</button>
         </div>
 
-        <!-- Subjects Tab -->
-        <div id="tab-subjects" class="tab-content hidden">
-          <div class="flex gap-2 mb-4">
-            <button id="add-subject-btn" class="btn-add flex-1">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-              เพิ่มวิชาเรียน
-            </button>
-            <button id="reset-subject-btn" class="bg-surface-800 text-surface-200 px-4 py-3 rounded-xl border border-surface-700 hover:bg-surface-700 transition-colors flex items-center justify-center gap-2" title="รีเซ็ตเป็นตารางเรียนเริ่มต้น">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-            </button>
-          </div>
-          <div id="subject-list" class="space-y-2"></div>
-          <div id="subject-empty" class="text-center py-8 text-surface-500 text-sm hidden">
-            <p>ยังไม่มีวิชาเรียน</p>
-            <p class="text-xs mt-1">กดปุ่มด้านบนเพื่อเพิ่มวิชา</p>
-          </div>
-        </div>
-
         <!-- Assignments Tab -->
         <div id="tab-assignments" class="tab-content">
           <button id="add-assignment-btn" class="btn-add w-full mb-4">
@@ -307,6 +292,24 @@
           <div id="quest-empty" class="text-center py-8 text-surface-500 text-sm hidden">
             <p>ยังไม่มีเควสเสริม</p>
             <p class="text-xs mt-1">กดปุ่มด้านบนเพื่อเพิ่มเควส</p>
+          </div>
+        </div>
+
+        <!-- Subjects Tab -->
+        <div id="tab-subjects" class="tab-content hidden">
+          <div class="flex gap-2 mb-4">
+            <button id="add-subject-btn" class="btn-add flex-1">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              เพิ่มวิชาเรียน
+            </button>
+            <button id="reset-subject-btn" class="bg-surface-800 text-surface-200 px-4 py-3 rounded-xl border border-surface-700 hover:bg-surface-700 transition-colors flex items-center justify-center gap-2" title="รีเซ็ตเป็นตารางเรียนเริ่มต้น">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+          </div>
+          <div id="subject-list" class="space-y-2"></div>
+          <div id="subject-empty" class="text-center py-8 text-surface-500 text-sm hidden">
+            <p>ยังไม่มีวิชาเรียน</p>
+            <p class="text-xs mt-1">กดปุ่มด้านบนเพื่อเพิ่มวิชา</p>
           </div>
         </div>
       </section>

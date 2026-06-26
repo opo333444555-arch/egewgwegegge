@@ -17,48 +17,48 @@
   // ===== DEFAULT WEEKLY TIMETABLE =====
   const DEFAULT_TIMETABLE = {
     'จันทร์': [
-      { name: 'ส32102 ประวัติฯ/หน้าที่ฯ', startTime: '08:20', endTime: '09:10' },
-      { name: 'ท32101 ภาษาไทย', startTime: '09:25', endTime: '10:15' },
-      { name: 'อ32201 อังกฤษเพื่อการสื่อสาร', startTime: '10:15', endTime: '11:05' },
-      { name: 'ค32201 คณิตฯ เพิ่มเติม', startTime: '11:05', endTime: '11:55' },
-      { name: 'ศ32101 ศิลปะ', startTime: '13:00', endTime: '13:50' },
-      { name: 'ว30203 ฟิสิกส์', startTime: '13:50', endTime: '14:40' },
+      { name: 'ประวัติฯ/หน้าที่ฯ', startTime: '08:20', endTime: '09:10' },
+      { name: 'ภาษาไทย', startTime: '09:25', endTime: '10:15' },
+      { name: 'อังกฤษเพื่อการสื่อสาร', startTime: '10:15', endTime: '11:05' },
+      { name: 'คณิตฯ เพิ่มเติม', startTime: '11:05', endTime: '11:55' },
+      { name: 'ศิลปะ', startTime: '13:00', endTime: '13:50' },
+      { name: 'ฟิสิกส์', startTime: '13:50', endTime: '14:40' },
       { name: 'แนะแนว/ต้านทุจริตฯ', startTime: '14:40', endTime: '15:30' },
     ],
     'อังคาร': [
-      { name: 'ส32102 สังคมศึกษา', startTime: '08:20', endTime: '09:10' },
-      { name: 'จ32201 ภาษาจีน', startTime: '09:25', endTime: '10:15' },
-      { name: 'ว30203 ฟิสิกส์', startTime: '10:15', endTime: '11:05' },
-      { name: 'ว30203 ฟิสิกส์', startTime: '11:05', endTime: '11:55' },
-      { name: 'ง32101 การงานอาชีพ', startTime: '13:00', endTime: '13:50' },
-      { name: 'ว32101 วิทยาศาสตร์', startTime: '13:50', endTime: '14:40' },
-      { name: 'ค32101 คณิตศาสตร์', startTime: '14:40', endTime: '15:30' },
+      { name: 'สังคมศึกษา', startTime: '08:20', endTime: '09:10' },
+      { name: 'ภาษาจีน', startTime: '09:25', endTime: '10:15' },
+      { name: 'ฟิสิกส์', startTime: '10:15', endTime: '11:05' },
+      { name: 'ฟิสิกส์', startTime: '11:05', endTime: '11:55' },
+      { name: 'การงานอาชีพ', startTime: '13:00', endTime: '13:50' },
+      { name: 'วิทยาศาสตร์', startTime: '13:50', endTime: '14:40' },
+      { name: 'คณิตศาสตร์', startTime: '14:40', endTime: '15:30' },
     ],
     'พุธ': [
-      { name: 'ว30307 การนำเสนอสื่อประสม', startTime: '08:20', endTime: '09:10' },
-      { name: 'ว30307 การนำเสนอสื่อประสม', startTime: '09:25', endTime: '10:15' },
-      { name: 'อ32101 ภาษาอังกฤษ', startTime: '10:15', endTime: '11:05' },
-      { name: 'ค32201 คณิตฯ เพิ่มเติม', startTime: '11:05', endTime: '11:55' },
-      { name: 'ว32101 วิทยาศาสตร์', startTime: '13:00', endTime: '13:50' },
-      { name: 'ว30243 ชีววิทยา', startTime: '13:50', endTime: '14:40' },
-      { name: 'ว30243 ชีววิทยา', startTime: '14:40', endTime: '15:30' },
+      { name: 'การนำเสนอสื่อประสม', startTime: '08:20', endTime: '09:10' },
+      { name: 'การนำเสนอสื่อประสม', startTime: '09:25', endTime: '10:15' },
+      { name: 'ภาษาอังกฤษ', startTime: '10:15', endTime: '11:05' },
+      { name: 'คณิตฯ เพิ่มเติม', startTime: '11:05', endTime: '11:55' },
+      { name: 'วิทยาศาสตร์', startTime: '13:00', endTime: '13:50' },
+      { name: 'ชีววิทยา', startTime: '13:50', endTime: '14:40' },
+      { name: 'ชีววิทยา', startTime: '14:40', endTime: '15:30' },
     ],
     'พฤหัสบดี': [
-      { name: 'ว30223 เคมี', startTime: '08:20', endTime: '09:10' },
-      { name: 'ท32101 ภาษาไทย', startTime: '09:25', endTime: '10:15' },
-      { name: 'ว32103 เทคโนฯ/ออกแบบ', startTime: '10:15', endTime: '11:05' },
-      { name: 'ค32101 คณิตศาสตร์', startTime: '11:05', endTime: '11:55' },
+      { name: 'เคมี', startTime: '08:20', endTime: '09:10' },
+      { name: 'ภาษาไทย', startTime: '09:25', endTime: '10:15' },
+      { name: 'เทคโนฯ/ออกแบบ', startTime: '10:15', endTime: '11:05' },
+      { name: 'คณิตศาสตร์', startTime: '11:05', endTime: '11:55' },
       { name: 'IS (การศึกษาค้นคว้าอิสระ)', startTime: '13:00', endTime: '13:50' },
-      { name: 'พ32101 พลศึกษา', startTime: '13:50', endTime: '14:40' },
-      { name: 'อ32201 อังกฤษเพื่อการสื่อสาร', startTime: '14:40', endTime: '15:30' },
+      { name: 'พลศึกษา', startTime: '13:50', endTime: '14:40' },
+      { name: 'อังกฤษเพื่อการสื่อสาร', startTime: '14:40', endTime: '15:30' },
     ],
     'ศุกร์': [
-      { name: 'ว30243 ชีววิทยา', startTime: '08:20', endTime: '09:10' },
-      { name: 'อ32101 ภาษาอังกฤษ', startTime: '09:25', endTime: '10:15' },
-      { name: 'ว30223 เคมี', startTime: '10:15', endTime: '11:05' },
-      { name: 'ว30223 เคมี', startTime: '11:05', endTime: '11:55' },
-      { name: 'พ32101 สุขศึกษา', startTime: '13:00', endTime: '13:50' },
-      { name: 'ส32101 สังคมศึกษา', startTime: '13:50', endTime: '14:40' },
+      { name: 'ชีววิทยา', startTime: '08:20', endTime: '09:10' },
+      { name: 'ภาษาอังกฤษ', startTime: '09:25', endTime: '10:15' },
+      { name: 'เคมี', startTime: '10:15', endTime: '11:05' },
+      { name: 'เคมี', startTime: '11:05', endTime: '11:55' },
+      { name: 'สุขศึกษา', startTime: '13:00', endTime: '13:50' },
+      { name: 'สังคมศึกษา', startTime: '13:50', endTime: '14:40' },
       { name: 'กิจกรรมชุมนุม', startTime: '14:40', endTime: '15:30' },
     ],
   };
@@ -88,26 +88,38 @@
   }
 
   function getData(key, fallback = []) {
-    if (inMemoryState[key] !== undefined) {
-      return inMemoryState[key];
-    }
-    return fallback;
+    try {
+      const raw = localStorage.getItem(getUserKey(key));
+      return raw ? JSON.parse(raw) : fallback;
+    } catch { return fallback; }
   }
 
-  let saveTimeout = null;
-  function setData(key, data) {
-    inMemoryState[key] = data;
-    
-    // Save to server asynchronously
+  let syncTimeout = null;
+  function syncToServer() {
     if (!currentUser) return;
-    if (saveTimeout) clearTimeout(saveTimeout);
-    saveTimeout = setTimeout(() => {
-      fetch('/api/data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: currentUser.id, data: inMemoryState })
-      }).catch(err => console.error('Failed to sync data', err));
-    }, 1000);
+    
+    const dataToSync = {
+      subjects: getData('subjects', []),
+      quests: getData('quests', []),
+      questChecks: getData('questChecks', {}),
+      morningDone: getData('morningDone', {}),
+      streak: getData('streak', { count: 0, lastDate: '' }),
+      assignments: getData('assignments', []),
+      subjectNotes: getData('subjectNotes', {}),
+      journals: getData('journals', [])
+    };
+    
+    fetch('/api/data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId: currentUser.id, data: dataToSync })
+    }).catch(err => console.error('Silent background sync failed', err));
+  }
+
+  function setData(key, data) {
+    localStorage.setItem(getUserKey(key), JSON.stringify(data));
+    if (syncTimeout) clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(syncToServer, 1000);
   }
 
   function showToast(message, type = 'success') {
@@ -215,18 +227,32 @@
     setData('subjects', subjects);
   }
 
-  async function initAuth() {
+  function initAuth() {
     const session = localStorage.getItem('sq_session');
     if (session) {
       try {
         currentUser = JSON.parse(session);
         
-        // Load data from Neon DB
-        const res = await fetch(`/api/data?userId=${currentUser.id}`);
-        if (res.ok) {
-          const json = await res.json();
-          inMemoryState = json.data || {};
-        }
+        // Background sync to pull latest data from Neon Database
+        fetch(`/api/data?userId=${currentUser.id}`)
+          .then(res => { if (!res.ok) throw new Error('Fetch failed'); return res.json(); })
+          .then(json => {
+            if (json.data && Object.keys(json.data).length > 0) {
+              let updated = false;
+              for (const [k, v] of Object.entries(json.data)) {
+                const existing = localStorage.getItem(getUserKey(k));
+                const newValue = JSON.stringify(v);
+                if (existing !== newValue) {
+                  localStorage.setItem(getUserKey(k), newValue);
+                  updated = true;
+                }
+              }
+              if (updated && !$('main-app').classList.contains('hidden')) {
+                initMainApp(); // refresh UI silently
+              }
+            }
+          })
+          .catch(err => console.error('Initial silent sync failed', err));
 
         enterApp();
         return;
@@ -278,13 +304,27 @@
       const dataRes = await fetch(`/api/data?userId=${currentUser.id}`);
       if (dataRes.ok) {
         const dataJson = await dataRes.json();
-        inMemoryState = dataJson.data || {};
+        if (dataJson.data) {
+          for (const [k, v] of Object.entries(dataJson.data)) {
+            localStorage.setItem(getUserKey(k), JSON.stringify(v));
+          }
+        }
       }
 
       enterApp();
     } catch (err) {
-      errorEl.textContent = err.message;
-      errorEl.classList.remove('hidden');
+      // Fallback to local authentication if offline/DB issue
+      const users = getAllUsers();
+      const user = users.find(u => u.username.toLowerCase() === username.toLowerCase());
+      if (user && user.passwordHash === hashPassword(password)) {
+        errorEl.classList.add('hidden');
+        currentUser = { id: user.id, username: user.username, displayName: user.displayName };
+        localStorage.setItem('sq_session', JSON.stringify(currentUser));
+        enterApp();
+      } else {
+        errorEl.textContent = err.message || 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+        errorEl.classList.remove('hidden');
+      }
     } finally {
       btn.disabled = false;
       btn.textContent = 'เข้าสู่ระบบ (Login)';
@@ -337,7 +377,6 @@
       
       // Temporarily set currentUser to seed data
       currentUser = { id: newId, username, displayName };
-      inMemoryState = {};
       seedDefaultSubjects();
 
       // Clear session
@@ -356,8 +395,28 @@
 
       showToast(`สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบ`, 'success');
     } catch (err) {
-      errorEl.textContent = err.message;
-      errorEl.classList.remove('hidden');
+      // Fallback to local storage if API is down
+      const users = getAllUsers();
+      if (users.find(u => u.username.toLowerCase() === username.toLowerCase())) {
+        errorEl.textContent = 'ชื่อผู้ใช้นี้มีคนใช้แล้ว';
+        errorEl.classList.remove('hidden');
+      } else {
+        const userObj = { id: newId, username, displayName, passwordHash: hashPassword(password) };
+        users.push(userObj);
+        saveAllUsers(users);
+
+        currentUser = { id: newId, username, displayName };
+        seedDefaultSubjects();
+        localStorage.removeItem('sq_session');
+        currentUser = null;
+
+        $('register-form').classList.add('hidden');
+        $('login-form').classList.remove('hidden');
+        $('login-username').value = username;
+        $('login-password').value = '';
+        errorEl.classList.add('hidden');
+        showToast(`สมัครสมาชิกสำเร็จ (Local)! กรุณาเข้าสู่ระบบ`, 'success');
+      }
     } finally {
       btn.disabled = false;
       btn.textContent = 'สมัครสมาชิก (Register)';
@@ -880,6 +939,11 @@
             </div>
             ${s.room ? `<p class="text-xs text-surface-500 mt-0.5">ห้อง: ${escapeHtml(s.room)}</p>` : ''}
             ${subjectAssignments.length > 0 ? `<p class="text-xs text-accent-400 mt-0.5">📢 มีงานต้องส่งวันนี้!</p>` : ''}
+            ${isCurrentClass ? `
+              <button class="quick-add-btn mt-2 bg-brand-600/30 text-brand-300 text-[10px] px-2 py-1 rounded-lg border border-brand-500/30 flex items-center gap-1 hover:bg-brand-500/40 w-max" data-subject-name="${escapeHtml(s.name)}">
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg> เพิ่มงาน/สอบ
+              </button>
+            ` : ''}
           </div>
           <svg class="w-4 h-4 text-surface-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
         </div>
@@ -888,8 +952,16 @@
 
     // Click handlers for subject detail
     listEl.querySelectorAll('.subject-clickable').forEach(card => {
-      card.addEventListener('click', () => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.quick-add-btn')) return;
         openSubjectDetail(card.dataset.subjectId);
+      });
+    });
+
+    listEl.querySelectorAll('.quick-add-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sName = btn.getAttribute('data-subject-name');
+        openAssignmentModal(null, sName, 'homework');
       });
     });
   }
@@ -1139,7 +1211,10 @@
     $(`page-${page}`).classList.remove('hidden');
 
     if (page === 'home') renderHomePage();
-    else if (page === 'manage') renderManagePage();
+    else if (page === 'manage') {
+      renderManagePage();
+      switchManageTab('assignments'); // Force assignments tab as default
+    }
     else if (page === 'journal') renderJournalPage();
   }
 
@@ -1247,6 +1322,13 @@
   }
 
   $('add-subject-btn').addEventListener('click', () => openSubjectModal());
+  $('reset-subject-btn')?.addEventListener('click', () => {
+    if (confirm('คุณต้องการรีเซ็ตตารางเรียนกลับไปเป็นค่าเริ่มต้นหรือไม่? (วิชาที่เพิ่มเองจะหายไป)')) {
+      seedDefaultSubjects();
+      renderSubjectList();
+      showToast('รีเซ็ตตารางเรียนเรียบร้อยแล้ว', 'success');
+    }
+  });
 
   function openSubjectModal(editId) {
     const existing = editId ? getData('subjects', []).find(s => s.id === editId) : null;
